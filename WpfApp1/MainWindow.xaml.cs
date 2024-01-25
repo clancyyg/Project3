@@ -20,19 +20,54 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        int upperIndex = -26;
+        int lowerIndex = -26;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Input_TextChanged(object sender, TextChangedEventArgs e)
+        public static string Encipher(string str)
         {
-            result.Text = Input.Text;
+            Char[] chars = str.ToCharArray();
+            //Creating a table and assign non-alphanumeric characters to each letter
+            Char[] encodeTable =
+            {
+                '`','!','#','$','%',
+                '^','&','*','(',')',
+                '-','_','=','+','[',
+                ']','{','}',';','<',
+                '>','?',',','.','~',
+                '@'
+            };
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (!char.IsLetter(chars[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    if (char.IsUpper(chars[i]))
+                    {
+                        chars[i] = char.ToLower(chars[i]);
+                        chars[i] = encodeTable[chars[i] - 'a'];
+                    }
+                    else
+                    {
+                        chars[i] = encodeTable[chars[i] - 'a'];
+                    }
+                }
+            }
+
+            String temp = new string(chars);
+            return temp;
         }
 
-        public static void Convert(String str, int index)
+        public static String Convert(String str, int uppercaseIndex, int lowercaseIndex)
         {
-
             char[] upperCase = new char[26];
             char[] lowerCase = new char[26];
 
@@ -56,52 +91,91 @@ namespace WpfApp1
 
             char[] chars = str.ToCharArray();
 
-            int i = 0;
             int j = 0;
-            while (i < chars.Length)
+            for (int i = 0; i < chars.Length; i++)
             {
                 while (j < 26)
                 {
-                    if (chars[i] == upperCase[j])
+                    if (!char.IsLetter(chars[i]))
                     {
-                        if (j + index > 25)
-                        {
-                            chars[i] = upperCase[j + index - 26];
-                            i++;
-                            break;
-
-                        }
-                        else
-                        {
-                            chars[i] = upperCase[j + index];
-                            i++;
-                            break;
-                        }
-                    }
-                    else if (chars[i] == lowerCase[j])
-                    {
-                        if (j + index > 25)
-                        {
-                            chars[i] = lowerCase[j + index - 26];
-                            i++;
-                            break;
-                        }
-                        else
-                        {
-                            chars[i] = lowerCase[j + index];
-                            i++;
-                            break;
-                        }
+                        break;
                     }
                     else
                     {
-                        j++;
+                        if (chars[i] == upperCase[j])
+                        {
+                            if (j + uppercaseIndex > 25)
+                            {
+                                chars[i] = upperCase[j + uppercaseIndex - 26];
+                                j = 0;
+                                break;
+                            }
+                            else
+                            {
+                                chars[i] = upperCase[j + uppercaseIndex];
+                                j = 0;
+                                break;
+                            }
+                        }
+                        else if (chars[i] == lowerCase[j])
+                        {
+                            if (j + lowercaseIndex > 25)
+                            {
+                                chars[i] = lowerCase[j + lowercaseIndex - 26];
+                                j = 0;
+                                break;
+                            }
+                            else
+                            {
+                                chars[i] = lowerCase[j + lowercaseIndex];
+                                j = 0;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            j++;
+                        }
                     }
                 }
+            }
+
+            String temp = new String(chars);
+            return temp;
+        }
+
+        private void Input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyStates == Keyboard.GetKeyStates(Key.Enter) && upperIndex != -26 && lowerIndex != -26) 
+            {
+                result.Text = Convert(Input.Text, upperIndex, lowerIndex);
+                encodedResult.Text = Encipher(result.Text);
 
             }
-            String temp = new String(chars);
-            
+        }
+
+        private void upperIndexInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(int.TryParse(upperIndexInput.Text, out int index))
+            {
+                upperIndex = Math.Abs(index);
+            }
+            else
+            {
+                upperWarning.Text = "Plese only input numbers!";
+            }
+        }
+
+        private void lowerIndexInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (int.TryParse(lowerIndexInput.Text, out int index))
+            {
+                lowerIndex = Math.Abs(index);
+            }
+            else
+            {
+                lowerWarning.Text = "Plese only input numbers!";
+            }
         }
     }
 }

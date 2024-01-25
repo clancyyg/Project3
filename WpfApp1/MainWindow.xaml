@@ -7,8 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock x:Name="result" HorizontalAlignment="Left" Margin="144,202,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" RenderTransformOrigin="0.411,2.196"/>
-        <TextBox x:Name="Input" HorizontalAlignment="Left" Margin="144,122,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="232" Height="50" TextChanged="Input_TextChanged"/>
+        <TextBlock x:Name="lowerWarning" HorizontalAlignment="Left" Margin="462,245,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="268"/>
+        <TextBlock x:Name="upperWarning" HorizontalAlignment="Left" Margin="462,147,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="268"/>
+        <TextBlock x:Name="encodedResult" HorizontalAlignment="Left" Margin="144,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
+        <TextBlock x:Name="result" HorizontalAlignment="Left" Margin="144,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.411,2.196" Width="232"/>
+        <TextBox x:Name="Input" HorizontalAlignment="Left" Margin="144,122,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="232" Height="50" KeyDown="Input_KeyDown"/>
+        <TextBlock HorizontalAlignment="Left" Margin="144,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="38"><Run Language="zh-cn" Text="Input the string that you wan to convert(Press Enter to process)"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="144,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"><Run Language="zh-cn" Text="Your result is:"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="462,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" Height="38"><Run Text="Please enter the number of digits to be moved"/><LineBreak/><Run Language="zh-cn" Text="(Upper case -25 - 25)"/></TextBlock>
+        <TextBox x:Name="upperIndexInput" HorizontalAlignment="Left" Margin="462,114,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="268" Height="28" TextChanged="upperIndexInput_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="462,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Height="36"><Run Text="Please enter the number of digits to be moved"/><LineBreak/><Run Language="zh-cn" Text="(Lower case -25 - 25)"/></TextBlock>
+        <TextBox x:Name="lowerIndexInput" HorizontalAlignment="Left" Margin="462,213,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="268" RenderTransformOrigin="0.327,0.229" Height="27" TextChanged="lowerIndexInput_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="144,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"><Run Language="zh-cn" Text="Enoded result is:"/></TextBlock>
+        
 
     </Grid>
 </Window>
